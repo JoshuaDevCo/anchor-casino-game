@@ -1,7 +1,7 @@
 [features]
 seeds = false
 [programs.localnet]
-carnival = "51D4Gq8vDCcoRf95RrtcHad5wAVMrUvG1EoDkPp9Jdim"
+carsino = "51D4Gq8vDCcoRf95RrtcHad5wAVMrUvG1EoDkPp9Jdim"
 
 [registry]
 url = "https://anchor.projectserum.com"
