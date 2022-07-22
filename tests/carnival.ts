@@ -11,13 +11,6 @@ describe("Carsino", () => {
 
   it("Create the account",async () => {
     const newKeyPair = anchor.web3.Keypair.generate();
-    await program.methods.initialize()
-      .accounts({
-        payer: wallet.publicKey,
-        newAccount: newKeyPair.publicKey,
-        systemProgram: anchor.web3.SystemProgram.programId
-      })
-      .signers([wallet.payer, newKeyPair])
-      .rpc();
+    
   });
 });
