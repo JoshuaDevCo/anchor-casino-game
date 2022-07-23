@@ -4,6 +4,7 @@ use anchor_lang::{
         clock, 
         hash::Hash,
         slot_hashes::SlotHashes,
+        keccak::hash
     }
 };
 
@@ -23,16 +24,21 @@ pub mod casino {
         house.player_count = 0;
         house.status = HouseStatus::Initialized;
         house.players = vec![];
-        let mut buf = [0u8, 0u8, 0u8, 0u8];
 
-        let mut slot_hashes = SlotHashes::new(&[(1, Hash::default()), (2, Hash::default())]);
-        let slot = clock::Clock::get().unwrap().slot - 1;
-        let hash = SlotHashes::slot_hashes(&slot_hashes);
+        // let mut slot_hashes = SlotHashes::new(&[(1, Hash::default()), (2, Hash::default())]);
+        let slot = clock::Clock::get().unwrap().slot;
+        let time_stamp: u64 = clock::Clock::get().unwrap().unix_timestamp.try_into().unwrap();
+        let hash = hash(&[
+            time_stamp.to_be().try_into().unwrap(),
+            slot.to_be().try_into().unwrap(),
+        ]);
 
-        house.rand = slot.try_into().unwrap();
-            // let buf: [u8; 32] = Hash::to_bytes(*hash);
-            // let slice: [u8; 4] = [buf[0], 20, 10, buf[4]];
-            // house.rand = u32::from_be_bytes(slice);
+        // let hash = SlotHashes::slot_hashes(&slot_hashes);
+        
+        // house.rand = slot.try_into().unwrap();
+        let buf: [u8; 32] = Hash::to_bytes(hash);
+        let slice: [u8; 4] = [buf[0], 20, 10, buf[4]];
+        house.rand = u32::from_be_bytes(slice);
             // house.rand = 120u32;
         // let random_seed = Keypair::new().pubkey();
         // let requestor = VrfRequestor::new(Network::Devnet).unwrap();
