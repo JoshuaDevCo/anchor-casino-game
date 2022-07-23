@@ -2,9 +2,8 @@ use anchor_lang::{
     prelude::*, 
     solana_program::{
         clock, 
-        hash::Hash,
         slot_hashes::SlotHashes,
-        keccak::hash
+        keccak::{hash, Hash}
     }
 };
 
@@ -28,10 +27,7 @@ pub mod casino {
         // let mut slot_hashes = SlotHashes::new(&[(1, Hash::default()), (2, Hash::default())]);
         let slot = clock::Clock::get().unwrap().slot;
         let time_stamp: u64 = clock::Clock::get().unwrap().unix_timestamp.try_into().unwrap();
-        let hash = hash(&[
-            time_stamp.to_be().try_into().unwrap(),
-            slot.to_be().try_into().unwrap(),
-        ]);
+        let hash = hash(&slot.to_be_bytes());
 
         // let hash = SlotHashes::slot_hashes(&slot_hashes);
         
