@@ -1,7 +1,7 @@
 [features]
 seeds = false
 [programs.localnet]
-carsino = "51D4Gq8vDCcoRf95RrtcHad5wAVMrUvG1EoDkPp9Jdim"
+casino = "4A74C5CvTQwwUQDYJrKzMwXNywJwi5qoUuvpYgJLaYY2"
 
 [registry]
 url = "https://anchor.projectserum.com"
